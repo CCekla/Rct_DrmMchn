@@ -1,4 +1,18 @@
-.App {
-  font-family: sans-serif;
+body {
+  font-family: arial, sans-serif;
   text-align: center;
+}
+
+main {
+  width: 60%;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.drum-pad {
+  background: pink;
+  width: 20%;
+  height: 200px;
+  padding: 1em;
+  font-size: 1.25em;
 }
