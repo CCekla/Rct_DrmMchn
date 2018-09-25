@@ -7,7 +7,6 @@ class Drum extends React.Component {
   constructor(props) {
     super(props);
     this.audioPlay = this.audioPlay.bind(this);
-    this.pressHandler = this.pressHandler.bind(this);
   }
 
   static defaultProp = {
@@ -22,19 +21,9 @@ class Drum extends React.Component {
     document.getElementById("display").innerHTML = this.props.id;
   }
 
-  pressHandler(e) {
-    if (e.keyCode === this.props.key.charCodeAt(0)) {
-      this.audioPlay(e);
-    }
-  }
-
   render() {
     return (
-      <div
-        className="drum-pad"
-        onClick={this.audioPlay}
-        onKeyPress={this.pressHandler}
-      >
+      <div className="drum-pad" onClick={this.audioPlay}>
         {this.props.txt}
         <audio id={this.props.txt} className="clip">
           <source src={this.props.sfx} type="audio/mpeg" />
@@ -83,12 +72,49 @@ const secondRow = {
 class Machine extends React.Component {
   constructor(props) {
     super(props);
+    this.pressHandler = this.pressHandler.bind(this);
+  }
+
+  create(o, str) {
+    let l = Object.keys(o).length;
+    let arr = [];
+
+    for (let i = 1; i < l + 1; i++) {
+      arr.push(<Drum id={o[i][2]} sfx={o[i][1]} txt={o[i][0]} key={o[i][0]} />);
+    }
+    let row = [
+      <div className="row" key={str}>
+        {arr}
+      </div>
+    ];
+    return row;
+  }
+
+  componentWillMount() {
+    document.addEventListener("keydown", this.pressHandler);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.pressHandler);
+  }
+
+  pressHandler(e) {
+    let item = document.getElementById(
+      String.fromCharCode(e.keyCode).toUpperCase()
+    ).parentElement;
+    item.click();
+    //console.log(String.fromCharCode(e.keyCode).toUpperCase());
   }
 
   render() {
-    return;
+    return (
+      <div onKeyPress={this.pressHandler}>
+        {this.create(firstRow, "row1")}
+        {this.create(secondRow, "row2")}
+      </div>
+    );
   }
 }
 
 const rootElement = document.getElementById("root");
-//ReactDOM.render(<Machine />, rootElement);
+ReactDOM.render(<Machine />, rootElement);
