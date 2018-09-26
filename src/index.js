@@ -18,13 +18,13 @@ class Drum extends React.Component {
   audioPlay(e) {
     let audio = document.getElementById(this.props.txt);
     audio.play();
-    document.getElementById("display").innerHTML = this.props.id;
+    document.getElementById("display").innerHTML = this.props.id.toUpperCase();
   }
 
   render() {
     return (
       <div className="drum-pad" onClick={this.audioPlay}>
-        {this.props.txt}
+        <p>{this.props.txt}</p>
         <audio id={this.props.txt} className="clip">
           <source src={this.props.sfx} type="audio/mpeg" />
           Audio not supported
@@ -102,8 +102,11 @@ class Machine extends React.Component {
     let item = document.getElementById(
       String.fromCharCode(e.keyCode).toUpperCase()
     ).parentElement;
+    item.classList.toggle("myClass");
     item.click();
-    //console.log(String.fromCharCode(e.keyCode).toUpperCase());
+    window.setTimeout(function() {
+      item.classList.toggle("myClass");
+    }, 200);
   }
 
   render() {
