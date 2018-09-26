@@ -102,9 +102,9 @@ class Machine extends React.Component {
     let item = document.getElementById(
       String.fromCharCode(e.keyCode).toUpperCase()
     ).parentElement;
-    item.classList.toggle("myClass");
+    item.classList.toggle("activeClass");
     window.setTimeout(function() {
-      item.classList.toggle("myClass");
+      item.classList.toggle("activeClass");
     }, 200);
     item.click();
   }

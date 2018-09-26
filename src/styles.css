@@ -62,7 +62,15 @@ main {
   color: white;
 }
 
-.myClass {
+#clearBtn {
+  color: white;
+  border: 1px solid white;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.activeClass {
   background: white;
   color: #5e2563;
 }
